@@ -17,7 +17,7 @@ public class Main {
         HoleAdapter roundHoleAdapter = new SquareToRoundHoleAdapter(); // new ...
         SquarePeg squarePeg = new DefaultSquarePeg(5.0); // квадратный колышек со стороной = 5
         System.out.println("Squere side = " + squarePeg.side());
-        RoundHole roundHoleForSquarePeg = machine.create(roundHoleAdapter.changeSide(squarePeg));
+        RoundHole roundHoleForSquarePeg = machine.create(roundHoleAdapter.changeSideToRadius(squarePeg));
         System.out.println("Hole radius fo sqere peg = " + roundHoleForSquarePeg.radius()); // ~ 3.5355
         // side -> radius
 
@@ -74,14 +74,14 @@ public class Main {
     }
 
     interface HoleAdapter{
-        public RoundPeg changeSide(SquarePeg peg);     
+        public RoundPeg changeSideToRadius(SquarePeg peg);     
     }
 
     static class SquareToRoundHoleAdapter implements HoleAdapter {
+
         @Override
-        public RoundPeg changeSide(SquarePeg peg) {
-            RoundPeg roundHole = new DefaultRoundPeg(Math.sqrt(Math.pow(peg.side(), 2) * 2) / 2);
-            return roundHole;
+        public RoundPeg changeSideToRadius(SquarePeg peg) {
+            return new DefaultRoundPeg(Math.sqrt(Math.pow(peg.side(), 2) * 2) / 2);
         }
     }
 
